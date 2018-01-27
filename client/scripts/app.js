@@ -67,7 +67,7 @@ let app = {
     div.textContent = textBody;
     div.setAttribute('class', 'textRoom'); 
     console.log(div);
-    let element = document.getElementById('chats');
+    let element = document.getElementById('roomSelect');
     element.appendChild(div);
   }
 };

@@ -58,6 +58,17 @@ let app = {
     console.log(div);
     let element = document.getElementById('chats');
     element.appendChild(div);
+  },
+
+  renderRoom: (message) => {
+    
+    let div = document.createElement('div');
+    let textBody = message['roomname'];
+    div.textContent = textBody;
+    div.setAttribute('class', 'textRoom'); 
+    console.log(div);
+    let element = document.getElementById('chats');
+    element.appendChild(div);
   }
 };
 

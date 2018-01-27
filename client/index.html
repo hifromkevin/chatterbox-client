@@ -30,6 +30,7 @@
       <div id="controls">
         Room: 
         <select name="rooms" id="rooms">
+          
         </select><br /><br />
         Message:
         <input type="text" id="message" />
@@ -42,12 +43,7 @@
 
 
    <script>
-var message = {
-  username: 'bob',
-  text: 'Never underestimate the power of the Schwartz!',
-  roomname: 'lobby'
-};
-      $('#send').on('click', app.renderMessage(message));
+
 /*    $('#send').on('click', () => {
       $('#chats').append('<p class="text usernameBody" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
       $('#message').val('');

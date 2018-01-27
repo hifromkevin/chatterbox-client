@@ -66,32 +66,15 @@ let app = {
     console.log('Username: ', message['username']);*/
   var obj = {};
     let element = document.getElementById('chats');
-  for (var i = 0; i < data.length; i++) {
-    // obj[data.results[i]['text'] = data.results[i]['text'];
-    // obj[data.results[i]['username'] = data.results[i]['username'];
-    obj[data[i]['roomname']] = data[i]['roomname'];
-
-    let textDiv = document.createElement('p');
-    let usernameDiv = document.createElement('h3');
-
-    let textBody = document.createTextNode(data[i]['text']);
-    let usernameBody = document.createTextNode(data[i]['username']);
-
-    usernameDiv.appendChild(usernameBody);
-    element.appendChild(usernameDiv);
-    textDiv.appendChild(textBody);
-    element.appendChild(textDiv);
-
-    textDiv.setAttribute('class', 'textBody');
-    textDiv.setAttribute('data-roomname', data[i]['roomname']);
-    usernameDiv.setAttribute('class', 'usernameBody'); 
-    usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
+    for (var i = 0; i < data.length; i++) {
+      // obj[data.results[i]['text'] = data.results[i]['text'];
+      // obj[data.results[i]['username'] = data.results[i]['username'];
+      obj[data[i]['roomname']] = data[i]['roomname'];
 
 
-
-    // $('#send').on('click', function() {
-    //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
-    // });
+      // $('#send').on('click', function() {
+      //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
+      // });
     }
     app.renderRoom(obj);
 
@@ -103,10 +86,25 @@ let app = {
         for(var i = 0; i < data.length; i++){
           let target = selected;
           if(target === data[i]['roomname']){
-            usernameDiv.appendChild(usernameBody);
+      let textDiv = document.createElement('p');
+      let usernameDiv = document.createElement('h3');
+
+      let textBody = document.createTextNode(data[i]['text']);
+      let usernameBody = document.createTextNode(data[i]['username']);
+
+      usernameDiv.appendChild(usernameBody);
+      element.appendChild(usernameDiv);
+      textDiv.appendChild(textBody);
+      element.appendChild(textDiv);
+
+      textDiv.setAttribute('class', 'textBody');
+      textDiv.setAttribute('data-roomname', data[i]['roomname']);
+      usernameDiv.setAttribute('class', 'usernameBody'); 
+      usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
+            /*usernameDiv.appendChild(usernameBody);
             element.appendChild(usernameDiv);
             textDiv.appendChild(textBody);
-            element.appendChild(textDiv);
+            element.appendChild(textDiv);*/
           }
         }
       }

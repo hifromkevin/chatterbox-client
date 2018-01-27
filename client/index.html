@@ -26,7 +26,30 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+
+      <div id="controls">
+        Room: 
+        <select name="rooms">
+          <option value="room1">Room1</option>
+          <option value="room2">Room2</option>
+        </select><br /><br />
+        Message:
+        <input type="text" id="message" />
+        <input type="submit" id="send" class="submit" />
+      </div>
+      <!-- END HTML -->
     </div>
+
     <div id="chats"></div>
+
+<!--   
+  <script>
+    $('#send').on('click', () => {
+      $('#chats').append('<p class="text" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
+      $('#message').val('');
+    });
+  </script> -->
+ 
+
   </body>
 </html>

@@ -1,14 +1,20 @@
-$(document).ready(function() {
-  let app = {
+
+  
+let app = {
+    server: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+
     init: () => {
-      console.log('I am in inits');
-      app.fetch();   
-      console.log('after init'); 
+      console.log('ay');
+      $(document).ready(function() {
+        console.log('ay2');
+        app.fetch(app.server);   
+      });
     },
     send: (message) => {
       $.ajax({
+ 
         // This is the url you should use to communicate with the parse API server.
-        url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+        url: app.server,
         type: 'POST',
         // log: console.log(message), 
         data: message, //JSON.stringify(message),
@@ -23,18 +29,19 @@ $(document).ready(function() {
       });
     },
 
-    fetch: (query, url) => {
+    fetch: () => {
       $.ajax({
-        url: url,
+        url: app.server,
         type: 'GET',
-        data: query,
+        //data: 'h', //=- orderOf ? ?? 
         contentType: 'application/json',
         success: function (data) {
           console.log('chatterbox: Query sent');
+          console.log(data);
         },
         error: function (data) {
           // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-          console.error('chatterbox: Failed to send query', data);
+          console.error('chatterbox: Failed to send query');
         }
       });
     },
@@ -93,5 +100,6 @@ $(document).ready(function() {
       };
     }
   };
-});
+app.init();
+
 

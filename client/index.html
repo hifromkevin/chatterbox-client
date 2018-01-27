@@ -42,14 +42,23 @@
 
     <div id="chats"></div>
 
-<!--   
-  <script>
-    $('#send').on('click', () => {
-      $('#chats').append('<p class="text" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
+
+   <script>
+var message = {
+  username: 'bob',
+  text: 'Never underestimate the power of the Schwartz!',
+  roomname: 'lobby'
+};
+      $('#send').on('click', app.renderMessage(message));
+/*    $('#send').on('click', () => {
+      $('#chats').append('<p class="text usernameBody" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
       $('#message').val('');
     });
-  </script> -->
- 
+
+    $('.usernameBody').on('click', () => {
+      console.log('hi!');
+    });*/
+  </script>
 
   </body>
 </html>

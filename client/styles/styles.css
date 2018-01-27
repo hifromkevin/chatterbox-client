@@ -88,3 +88,12 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+.roomBody{
+    color: blue;
+    font-weight: bold; 
+}
+
+.usernameBody{
+    color: red;
+    font-weight: bold; 
+}

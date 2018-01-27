@@ -2,17 +2,16 @@
 
 let app = {
   server: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
-
+  
   init: () => {
-    console.log('ay');
-    $(document).ready(function() {
-      console.log('ay2');
-      app.fetch(app.server);   
-    });
+    console.log('page loaded');
+    app.fetch(app.server);
+    // $('select').on('click', () => {
+    //   console.log($(this).val());
+    // });
   },
   send: (message) => {
     $.ajax({
-
       // This is the url you should use to communicate with the parse API server.
       url: app.server,
       type: 'POST',
@@ -37,10 +36,12 @@ let app = {
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Query sent');
-        for(var i = 0; i < data.results.length; i++){
+/*        for (var i = 0; i < data.results.length; i++) {
+          //obj[message['roomname']] = message['roomname'];
           app.renderMessage(data.results[i]);
-        
-        }
+        }*/
+        //console.log('data', data.results.length);
+        app.renderMessage(data.results);
       },
       error: function (data) {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -58,46 +59,52 @@ let app = {
     }
   },
 
-  renderMessage: (message) => {
+  renderMessage: (data) => {
 /*    console.log('Room: ', message['roomname']);
     console.log('Text: ', message['text']);
     console.log('Username: ', message['username']);*/
+  var obj = {};
+  for (var i = 0; i < data.length; i++) {
+    // obj[data.results[i]['text'] = data.results[i]['text'];
+    // obj[data.results[i]['username'] = data.results[i]['username'];
+    obj[data[i]['roomname']] = data[i]['roomname'];
 
-    let roomDiv = document.createElement('div');
     let textDiv = document.createElement('p');
-    let usernameDiv = document.createElement('p');
+    let usernameDiv = document.createElement('h3');
 
-    let roomBody = message['roomname'];
-    let textBody = document.createTextNode(message['text']);
-    let usernameBody = message['username'];
-    
+    let textBody = document.createTextNode(data[i]['text']);
+    let usernameBody = document.createTextNode(data[i]['username']);
+    let element = document.getElementById('chats');
+
+    usernameDiv.appendChild(usernameBody);
+    element.appendChild(usernameDiv);
     textDiv.appendChild(textBody);
-    document.getElementById('chats').appendChild(textDiv);
+    element.appendChild(textDiv);
 
-    roomDiv.setAttribute('class', 'roomBody'); 
     textDiv.setAttribute('class', 'textBody');
     usernameDiv.setAttribute('class', 'usernameBody'); 
-    // roomDiv.append(usernameDiv).append(textBody);
-    //textDiv.textContent = textBody;
-    let element = document.getElementById('chats'); //****
-    element.appendChild(textDiv);//******
-    
 
 
     // $('#send').on('click', function() {
     //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
     // });
+    }
+
+    app.renderRoom(obj);
   },
 
-  renderRoom: (message) => {
-    
-    let div = document.createElement('div');
-    let textBody = message['roomname'];
-    div.textContent = textBody;
-    div.setAttribute('class', 'textRoom'); 
+  renderRoom: (roomObj) => {
+    let element = document.getElementById('rooms');
+    for (var key in roomObj) {
+      let roomDiv = document.createElement('option');
+      let roomBody = document.createTextNode(roomObj[key]);
+      roomDiv.appendChild(roomBody);
+      roomDiv.setAttribute('value', roomObj[key]);
+      document.getElementById('rooms').append(roomDiv);
+      element.appendChild(roomDiv);
+    }
 
-    let element = document.getElementById('roomSelect');
-    element.appendChild(div);
+
   },
 
   handleUsernameClick: () => {
@@ -107,6 +114,10 @@ let app = {
     };
   }
 };
-app.init();
+
+$(document).ready(function() {
+  app.init(); 
+});
+
 
 

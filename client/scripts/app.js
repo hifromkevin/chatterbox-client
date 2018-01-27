@@ -6,18 +6,14 @@ let app = {
   init: () => {
     console.log('page loaded');
     app.fetch(app.server);
-     // $('#rooms').on('click', function(v) {
-     //   console.log(v.target.value);
-     // });
-
   },
+
   send: (message) => {
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: app.server,
       type: 'POST',
-      // log: console.log(message), 
-      data: message, //JSON.stringify(message),
+      data: message,
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
@@ -33,15 +29,10 @@ let app = {
     $.ajax({
       url: app.server,
       type: 'GET',
-      //data: 'h', //=- orderOf ? ?? 
+      data: 'order=-createdAt',
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Query sent');
-/*        for (var i = 0; i < data.results.length; i++) {
-          //obj[message['roomname']] = message['roomname'];
-          app.renderMessage(data.results[i]);
-        }*/
-        //console.log('data', data.results.length);
         app.renderMessage(data.results);
       },
       error: function (data) {
@@ -61,17 +52,10 @@ let app = {
   },
 
   renderMessage: (data) => {
-/*    console.log('Room: ', message['roomname']);
-    console.log('Text: ', message['text']);
-    console.log('Username: ', message['username']);*/
-  var obj = {};
+    var obj = {};
     let element = document.getElementById('chats');
     for (var i = 0; i < data.length; i++) {
-      // obj[data.results[i]['text'] = data.results[i]['text'];
-      // obj[data.results[i]['username'] = data.results[i]['username'];
       obj[data[i]['roomname']] = data[i]['roomname'];
-
-
       // $('#send').on('click', function() {
       //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
       // });
@@ -79,32 +63,25 @@ let app = {
     app.renderRoom(obj);
 
     $('#rooms').change(() => {
-      var selected = $("#rooms option:selected").text();
-      // app.clearMessages();
+      var selected = $('#rooms option:selected').text();
       app.clearMessages();
-      if($('.usernameBody').data('roomname', selected)) {
-        for(var i = 0; i < data.length; i++){
+      if ($('.usernameBody').data('roomname', selected)) {
+        for (var i = 0; i < data.length; i++) {
           let target = selected;
-          if(target === data[i]['roomname']){
-      let textDiv = document.createElement('p');
-      let usernameDiv = document.createElement('h3');
+          if (target === data[i]['roomname']) {
+            let textDiv = document.createElement('p');
+            let usernameDiv = document.createElement('h3');
+            let textBody = document.createTextNode(data[i]['text']);
+            let usernameBody = document.createTextNode(data[i]['username']);
 
-      let textBody = document.createTextNode(data[i]['text']);
-      let usernameBody = document.createTextNode(data[i]['username']);
-
-      usernameDiv.appendChild(usernameBody);
-      element.appendChild(usernameDiv);
-      textDiv.appendChild(textBody);
-      element.appendChild(textDiv);
-
-      textDiv.setAttribute('class', 'textBody');
-      textDiv.setAttribute('data-roomname', data[i]['roomname']);
-      usernameDiv.setAttribute('class', 'usernameBody'); 
-      usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
-            /*usernameDiv.appendChild(usernameBody);
+            usernameDiv.appendChild(usernameBody);
             element.appendChild(usernameDiv);
             textDiv.appendChild(textBody);
-            element.appendChild(textDiv);*/
+            element.appendChild(textDiv);
+            textDiv.setAttribute('class', 'textBody');
+            textDiv.setAttribute('data-roomname', data[i]['roomname']);
+            usernameDiv.setAttribute('class', 'usernameBody'); 
+            usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
           }
         }
       }
@@ -121,8 +98,6 @@ let app = {
       document.getElementById('rooms').append(roomDiv);
       element.appendChild(roomDiv);
     }
-
-
   },
 
   handleUsernameClick: () => {

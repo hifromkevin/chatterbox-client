@@ -6,9 +6,10 @@ let app = {
   init: () => {
     console.log('page loaded');
     app.fetch(app.server);
-    // $('select').on('click', () => {
-    //   console.log($(this).val());
-    // });
+     // $('#rooms').on('click', function(v) {
+     //   console.log(v.target.value);
+     // });
+
   },
   send: (message) => {
     $.ajax({
@@ -64,6 +65,7 @@ let app = {
     console.log('Text: ', message['text']);
     console.log('Username: ', message['username']);*/
   var obj = {};
+    let element = document.getElementById('chats');
   for (var i = 0; i < data.length; i++) {
     // obj[data.results[i]['text'] = data.results[i]['text'];
     // obj[data.results[i]['username'] = data.results[i]['username'];
@@ -74,7 +76,6 @@ let app = {
 
     let textBody = document.createTextNode(data[i]['text']);
     let usernameBody = document.createTextNode(data[i]['username']);
-    let element = document.getElementById('chats');
 
     usernameDiv.appendChild(usernameBody);
     element.appendChild(usernameDiv);
@@ -82,15 +83,34 @@ let app = {
     element.appendChild(textDiv);
 
     textDiv.setAttribute('class', 'textBody');
+    textDiv.setAttribute('data-roomname', data[i]['roomname']);
     usernameDiv.setAttribute('class', 'usernameBody'); 
+    usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
+
 
 
     // $('#send').on('click', function() {
     //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
     // });
     }
-
     app.renderRoom(obj);
+
+    $('#rooms').change(() => {
+      var selected = $("#rooms option:selected").text();
+      // app.clearMessages();
+      app.clearMessages();
+      if($('.usernameBody').data('roomname', selected)) {
+        for(var i = 0; i < data.length; i++){
+          let target = selected;
+          if(target === data[i]['roomname']){
+            usernameDiv.appendChild(usernameBody);
+            element.appendChild(usernameDiv);
+            textDiv.appendChild(textBody);
+            element.appendChild(textDiv);
+          }
+        }
+      }
+    });
   },
 
   renderRoom: (roomObj) => {

@@ -97,3 +97,7 @@ form input[type=text] {
     color: red;
     font-weight: bold; 
 }
+
+.hideme {
+  display: none;
+}

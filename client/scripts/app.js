@@ -90,6 +90,7 @@ let app = {
             let textBody = document.createTextNode(data[i]['text']);
             let usernameBody = document.createTextNode(data[i]['username']);
 
+
             usernameDiv.appendChild(usernameBody);
             element.appendChild(usernameDiv);
             textDiv.appendChild(textBody);
@@ -117,10 +118,16 @@ let app = {
             
             //newMessage.value();
             sendButton.onclick = function () {
+              
               app.send(msgToSend);
+              app.fetch(app.server);
             };
           }
         }
+        $('h3').on('click', function() {
+          console.log($(this).text());
+          $('#friends').append($(this).text() + '<br />');
+        });
       }
     });
   },
@@ -135,12 +142,13 @@ let app = {
       document.getElementById('rooms').append(roomDiv);
       element.appendChild(roomDiv);
     }
+
   },
 
   handleUsernameClick: () => {
     let username = document.getElementsByClassName('usernameBody');
     username.onclick = function() {
-      console.log('clicked'); 
+      console.log('clicked?'); 
     };
   }
 };

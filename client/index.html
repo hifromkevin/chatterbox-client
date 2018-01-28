@@ -30,6 +30,7 @@
       <div id="controls">
         Room: 
         <select name="rooms" id="rooms">
+          <option>-</option>
           
         </select><br /><br />
         Create Room:
@@ -43,13 +44,11 @@
     </div>
 
     <div id="chats"></div>
-    <div id="friends"></div>
+    <div id="friends">
+      <h1>Friends</h1>
+    </div>
 
    <script>
-    $('body').on('click', function() {
-      console.log('clicked!');
-      //$('#friends').append(this).val();
-    });
 
 /*    $('#send').on('click', () => {
       $('#chats').append('<p class="text usernameBody" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');

@@ -71,9 +71,6 @@ let app = {
     let element = document.getElementById('chats');
     for (var i = 0; i < data.length; i++) {
       obj[data[i]['roomname']] = data[i]['roomname'];
-      // $('#send').on('click', function() {
-      //   $('#chats').append($('#message').val() + '<br />'); //$('#message').val()
-      // });
     }
     app.renderRoom(obj);
 
@@ -100,23 +97,12 @@ let app = {
             usernameDiv.setAttribute('class', 'usernameBody'); 
             usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
 
-            /* Handle new messages */
-    /*$('#send').on('click', () => {
-      $('#chats').append('<p class="text usernameBody" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
-      $('#message').val('');
-    });
-
-    $('.usernameBody').on('click', () => {
-      console.log('hi!');
-    });*/
             let sendButton = document.getElementById('send');
             let newMessage = document.getElementById('message');
             let msgToSend = {
               username: window.location.search.split('=')[1],
-              //roomname: 'poois'
             };
             
-            //newMessage.value();
             sendButton.onclick = function () {
               
               app.send(msgToSend);

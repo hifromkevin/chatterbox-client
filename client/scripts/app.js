@@ -9,11 +9,25 @@ let app = {
   },
 
   send: (message) => {
+    let newMessage = document.getElementById('message');
+    let newRoom = document.getElementById('newroom');
+    let selectedRoom = document.getElementById('rooms');
+    console.log('sel room: ', selectedRoom);
+    if (newRoom.value !== '') {
+      console.log('you entered text');
+      message['roomname'] = newRoom.value;
+    } else {
+      console.log('you selected a room');
+      message['roomname'] = selectedRoom.value;
+    }
+    message['text'] = newMessage.value;
+    console.log('here is the msg: ', message);
+
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: app.server,
       type: 'POST',
-      data: message,
+      data: JSON.stringify(message),
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
@@ -33,6 +47,7 @@ let app = {
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Query sent');
+        console.log(data);
         app.renderMessage(data.results);
       },
       error: function (data) {
@@ -69,6 +84,7 @@ let app = {
         for (var i = 0; i < data.length; i++) {
           let target = selected;
           if (target === data[i]['roomname']) {
+            /* Load correct messages */
             let textDiv = document.createElement('p');
             let usernameDiv = document.createElement('h3');
             let textBody = document.createTextNode(data[i]['text']);
@@ -82,6 +98,27 @@ let app = {
             textDiv.setAttribute('data-roomname', data[i]['roomname']);
             usernameDiv.setAttribute('class', 'usernameBody'); 
             usernameDiv.setAttribute('data-roomname', data[i]['roomname']);
+
+            /* Handle new messages */
+    /*$('#send').on('click', () => {
+      $('#chats').append('<p class="text usernameBody" style="padding: 2%; background-color: #ccc;">' + $('#message').val() + '</p>');
+      $('#message').val('');
+    });
+
+    $('.usernameBody').on('click', () => {
+      console.log('hi!');
+    });*/
+            let sendButton = document.getElementById('send');
+            let newMessage = document.getElementById('message');
+            let msgToSend = {
+              username: window.location.search.split('=')[1],
+              //roomname: 'poois'
+            };
+            
+            //newMessage.value();
+            sendButton.onclick = function () {
+              app.send(msgToSend);
+            };
           }
         }
       }
